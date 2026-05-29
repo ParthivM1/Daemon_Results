@@ -68,6 +68,30 @@ Primary report:
 
 [reports/licensing_evidence/daemon_black_scholes_corrected_protection_ablation_current_20260528.md](reports/licensing_evidence/daemon_black_scholes_corrected_protection_ablation_current_20260528.md)
 
+## Protection Glossary
+
+Short definitions below are sourced from the current Black-Scholes ablation report and the protection hardening update only. The glossary is intentionally architecture-level; implementation details and private selector logic are not disclosed. [[1]](reports/licensing_evidence/daemon_black_scholes_corrected_protection_ablation_current_20260528.md) [[2]](reports/licensing_evidence/daemon_black_scholes_protection_hardening_update_20260528.md)
+
+| Term | One-sentence explanation |
+| --- | --- |
+| `readout_support_calibration` | Support calibration estimates measurement/readout behavior so reported phase-route estimates are not treated as raw uncalibrated counts. |
+| `protected_layout` | Protected layout selection routes the circuit through a hardware layout chosen as part of Daemon's execution policy rather than blindly accepting an arbitrary physical mapping. |
+| `real_only_phase_alignment` | Real-only phase alignment keeps the Black-Scholes phase-estimator route focused on the real component used by the scalar benchmark. |
+| `sign_symmetric_phase_cancellation` | Sign symmetry runs matched phase branches so shared phase/readout bias can cancel when the branches are combined. |
+| `transpilation_scored_layout_selector` | The layout selector scores candidate transpiled layouts and chooses the route with lower expected implementation risk. |
+| `spectral_hamming_phase_compression` | Hamming phase compression reduces physical qubit pressure for the phase route while preserving a competitive corrected error+CI in the ablation. |
+| `phase_zero_visibility_calibration` | Phase-zero calibration adds a neutral/reference phase branch to estimate visibility or offset effects before scoring the protected route. |
+| `tsme_semantic_phase_shelter` | TSME phase sheltering adds a protected semantic phase branch so the logical phase signal is not left as an unprotected bare readout. |
+| `contour_phase_ordering` | CONTOUR phase ordering reorders phase operations as a low-tax drift-control branch for the routed phase estimator. |
+| `contour_toroidal_phase_echo` | CONTOUR phase echo is a heavier echo-style drift branch intended for regimes where extra phase protection can justify its circuit tax. |
+| `x_xx_phase_echo` | X/XX echo is an optional echo branch targeting transverse and two-qubit pressure around protected phase paths. |
+| `tsme_terminal_mirror_decode` | TSME terminal mirror decode mirrors the final phase bit onto a shelter wire and decodes through shelter/ancilla agreement. |
+| `tsme_mirror_matrix_decoder` | The mirror matrix decoder uses a calibrated two-bit readout matrix over `00`, `01`, `10`, and `11` outcomes. |
+| `tsme_auto_decoder` | Auto decoding chooses the mirror decoding path from support behavior instead of forcing a fixed decoder. |
+| `mirror_agreement_gate` | The agreement gate rejects mirror packets when shelter/ancilla agreement falls below the frozen diagnostic threshold. |
+| `effective_shot_ci_correction` | Effective-shot correction widens confidence intervals when filtering or postselection reduces the number of usable logical shots. |
+| `no_harm_selector` | The no-harm selector disables optional physical protection when routed depth, two-qubit pressure, or diagnostics predict the branch will hurt more than help. |
+
 ## 2. Black-Scholes Protection Ablation
 
 This is the clearest application-layer runtime result. The same scalar route was run with several Daemon protection/circuit branches.
