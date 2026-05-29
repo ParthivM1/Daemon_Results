@@ -1,227 +1,133 @@
-# Daemon: Quantum Runtime and Error Suppression Stack
+# Daemon: Quantum Runtime and Protected Execution Stack
 
-Live IBM benchmark evidence against Fire Opal, with proprietary runtime internals withheld.
+Daemon is a quantum runtime stack for making structured workloads executable on noisy quantum hardware. It focuses on route selection, circuit protection, hardware-aware execution, and evidence-bounded reporting from live IBM runs.
 
-![Torino](https://img.shields.io/badge/Backend-IBM%20Torino-0a66c2)
-![vs X](https://img.shields.io/badge/CONTOUR%20vs%20X-12%2F12-success)
-![vs BB1](https://img.shields.io/badge/CONTOUR%20vs%20BB1-12%2F12-success)
-![vs XY4](https://img.shields.io/badge/CONTOUR%20vs%20XY4-11%2F12-success)
-![Mean dXY4](https://img.shields.io/badge/Mean%20dXY4-%2B0.0531-success)
+This repository is the public benchmark and results showcase. Core compiler internals, calibration policy, derivations, and production parameters are intentionally withheld.
 
-Daemon is a quantum runtime/control stack for noisy hardware, currently tested mostly on IBM superconducting backends.
+![Backend](https://img.shields.io/badge/Hardware-IBM%20Quantum-0a66c2)
+![Focus](https://img.shields.io/badge/Focus-Protected%20Runtime-success)
+![Apps](https://img.shields.io/badge/Application-Black--Scholes%20%2F%20PDE%20Scalar-blue)
+![IP](https://img.shields.io/badge/Core%20IP-Withheld-lightgrey)
 
-It improves execution before and during the run by changing circuit representation, drift/error handling, support circuits, and backend-specific execution choice.
+## What Daemon Does
 
-The public repo is a benchmark showcase only; core compiler/runtime internals are proprietary.
+Daemon is not a single transpiler pass. It is a route-aware runtime stack:
 
-Current results include multiple matched live wins against Q-CTRL Fire Opal on `n=16` TFIM, Heisenberg, and XY workloads.
+| Layer | Role |
+| --- | --- |
+| Problem route | Maps structured workloads into quantum-eligible forms such as PDE scalar targets, stochastic expectations, QAE fragments, and Hamiltonian/drift probes. |
+| Circuit route | Builds hardware-survivable circuits instead of forcing full reversible arithmetic when that would collapse under noise. |
+| Protection stack | Applies TSME, CONTOUR, X/XX handling, phase-zero support, sign symmetry, protected layout selection, and no-harm policies. |
+| Hardware execution | Runs selected circuits on IBM backends when a backend/key pair is executable. |
+| Evidence engine | Emits reports with backend, job IDs, QPU time, estimates, confidence intervals, and claim boundaries. |
 
-Repeatability across calibration windows is still being tightened, so the claim here is benchmark-scoped live hardware wins, not universal SOTA.
+## Current Evidence Snapshot
 
-Daemon includes CONTOUR, a proprietary drift-control layer, plus TSME representation/protection, transverse X/XX suppression, residual perturbation handling, and backend-aware execution policy.
+Daemon currently has public artifacts for:
 
-> This repository is the **public benchmark showcase** only.
-> The core CONTOUR transpilation engine and calibration daemon are proprietary commercial IP.
+- Live IBM Black-Scholes/Feynman-Kac scalar benchmark runs.
+- Runtime protection ablations across phase-zero calibration, sign symmetry, protected layout selection, Hamming phase compression, TSME sheltering, CONTOUR ordering, terminal mirror decoding, and X/XX echo variants.
+- CONTOUR deep-window protection benchmarks against baseline and XY4-style schedules.
+- Matched Fire Opal comparison packets with explicit boundaries.
+- Cross-backend/deep-window benchmark artifacts from the earlier CONTOUR result set.
 
----
+Important boundary:
 
-## Live Fire Opal Comparison Snapshot
+- Daemon does not claim a general quantum speedup for arbitrary PDEs.
+- Daemon does not claim a full PDE-surface quantum solve.
+- Speedup numbers in this repo belong to the exact benchmark assumptions and reports that produce them.
+- The repo is evidence-facing, not an IP disclosure.
 
-Daemon has matched benchmark wins against Q-CTRL Fire Opal on live IBM systems. The strongest completed results include:
+## Demonstrations
 
-| Workload | Backend | Daemon / PQMCF best | Fire Opal best | Gap |
-|:--|:--|--:|--:|--:|
-| TFIM mixed n16 v5 | IBM Marrakesh | 0.904184 | 0.872475 | +0.031709 |
-| TFIM mixed n16 v4 | IBM Kingston | 0.921005 | 0.897435 | +0.023570 |
-| TFIM mixed n16 v11 | IBM Fez | 0.917041 | 0.906602 | +0.010439 |
-| Heisenberg mixed n16 v1 | IBM Marrakesh | 0.932244 | 0.923357 | +0.008887 |
-| XY ring n16 v8 | IBM Fez | 0.979066 | 0.975757 | +0.003309 |
+See [DEMONSTRATIONS.md](DEMONSTRATIONS.md) for the main public demo index.
 
-Repeatability is still being tightened. Recent Marrakesh reruns flipped against Daemon, so the current claim is benchmark-scoped live hardware wins, not universal SOTA.
+| Demonstration | Artifact |
+| --- | --- |
+| Black-Scholes scalar benchmark | [Black-Scholes protection ablation](reports/licensing_evidence/daemon_black_scholes_corrected_protection_ablation_current_20260528.md) |
+| TSME/CONTOUR hardening | [Protection hardening update](reports/licensing_evidence/daemon_black_scholes_protection_hardening_update_20260528.md) |
+| CONTOUR deep-window hardware benchmark | [Hardware summary](reports/validation3_hardware_summary_20260419.md) |
+| Fire Opal comparison packet | [Fire Opal summary](reports/fireopal_vs_pqmcf_summary_20260418.md) |
+| Earlier public benchmark brief | [docs/results.md](docs/results.md) |
 
-Detailed table:
-- `docs/fireopal_matched_results.md`
+## Core Runtime Methods
 
----
+### TSME
 
-## Approach (High-Level)
+TSME is Daemon's semantic protection layer. It protects the logical object as a structured semantic state rather than treating the useful signal as an unprotected local amplitude. In the Black-Scholes runner, TSME appears as a phase shelter and optional terminal mirror decode. The latest hardening pass adds agreement gating, calibrated two-bit mirror decoding, and no-harm selection so physical TSME branches are deployed only when the routed tax is justified.
 
-Daemon is a runtime-level suppression stack with several components:
+### CONTOUR
 
-1. TSME representation and protection branches for changing how the workload is embedded and protected.
-2. CONTOUR drift control for calibration-aware deep-time stabilization.
-3. Transverse X/XX suppression and residual perturbation handling for harder error regimes.
-4. Backend-aware execution policy for choosing how the workload is packaged and run.
+CONTOUR is Daemon's phase/drift protection layer. It is designed for deterministic, hardware-aware drift control. In the Black-Scholes scalar route, a low-tax CONTOUR mode reorders phase terms to balance phase-channel load without doubling the circuit. In deeper hardware benchmarks, CONTOUR is evaluated against baseline and XY4-style schedules.
 
-CONTOUR itself is an adaptive, hardware-aware suppression layer that:
+### X/XX Handling
 
-1. Uses calibration-derived signals to adapt control intensity by regime.
-2. Applies topology-aware coordination to reduce interference at scale.
-3. Runs as a deterministic low-latency runtime layer suitable for production workflows.
+X/XX handling targets transverse pressure and echo-style cancellation around protected paths. Current evidence shows this is regime-dependent: heavier echo branches can help deeper circuits but may hurt shallow phase estimators, so Daemon records pressure and lets the selector decide.
 
-Detailed actuator math, scheduling policy, and calibration logic are intentionally withheld.
+### Selector
 
----
+The selector is part of the invention. It prevents the runtime from blindly applying every protection. Some circuits need light phase-zero support; others need drift protection; others should reject heavy branches. Daemon's no-harm policy makes protection conditional on target-blind diagnostics and routed implementation tax.
 
-## What I'm Looking For
+## Selected Results
 
-- Additional compute access on IBM and other hardware.
-- External technical feedback on benchmark methodology and validation quality.
-- Help testing repeatability across calibration windows.
-- Conversations with accelerator, research, or funding partners if the evidence is strong enough.
+### Black-Scholes/Feynman-Kac Scalar Route
 
----
+Best corrected live branch in the current ablation:
 
-## Benchmark Results (IBM Torino)
+| Field | Value |
+| --- | --- |
+| Backend | `ibm_marrakesh` |
+| Job | `d8c98ij8ch0s738ugrug` |
+| QPU time | `3.000s` |
+| Estimate | `0.6205121893` |
+| Independent target | `0.6240388897` |
+| Corrected error+CI | `0.055871195` |
+| Projected high-dimensional MC comparison | `250.902x` |
 
-Evaluation matrix:
-- Lattice sizes: Q6, Q8, Q12
-- Memory windows: 3200dt, 4912dt, 6400dt, 8000dt
-- Baselines: `X`, `XY4`, `BB1`
+Report:
 
-Primary artifact:
-- `data/torino/validation3_torino_full_paritylift_aggregate_today.json`
+[reports/licensing_evidence/daemon_black_scholes_corrected_protection_ablation_current_20260528.md](reports/licensing_evidence/daemon_black_scholes_corrected_protection_ablation_current_20260528.md)
 
-### Latest Deep Validation (Today)
+### CONTOUR Hardware Benchmark
 
-Deep-only confirmation rerun (`6400dt`, `8000dt`) across Q6/Q8/Q12:
-- Artifact: `data/torino/validation3_torino_deep_aggregate_today2.json`
-- **vs X:** 6 / 6 wins (`+0.1465` mean absolute gain)
-- **vs BB1:** 6 / 6 wins (`+0.0944` mean absolute gain)
-- **vs XY4:** 6 / 6 wins (`+0.0423` mean absolute gain)
+CONTOUR was tested against baseline and XY4-style schedules over deeper hardware windows.
 
-![Latest Deep Check dXY4](docs/figures/deep_check_today2_dxy4.png)
+Report:
 
-Detailed deep slot table:
-- `docs/deep_check_today2.md`
+[reports/validation3_hardware_summary_20260419.md](reports/validation3_hardware_summary_20260419.md)
 
-### Cross-Backend Deep Validation (Today5)
+### Fire Opal Comparison
 
-Deep-only run (`6400dt`, `8000dt`) across Q6/Q8/Q12 on both IBM backends:
+The repo includes matched Fire Opal comparison packets. These should be read with the boundary in the report: some benchmark-scoped Daemon wins exist in the broader results set, but the included summary also records cases where Fire Opal beat raw PQMCF branches. This repository avoids presenting those comparisons as a universal dominance claim.
 
-- Marrakesh aggregate: `data/marrakesh/validation3_marrakesh_deep_aggregate_today5.json`
-  - vs X: 6/6
-  - vs BB1: 6/6
-  - vs XY4: 5/6 (`mean dXY4 = +0.0469`)
-  - non-win slot: `q8 @ 6400dt` (`dXY4 = -0.0273`)
-- Torino aggregate: `data/torino/validation3_torino_deep_aggregate_today5.json`
-  - vs X: 6/6
-  - vs BB1: 6/6
-  - vs XY4: 5/6 (`mean dXY4 = +0.0605`)
-  - non-win slot: `q8 @ 8000dt` (`dXY4 = -0.0273`)
+Reports:
 
-Cross-backend summary and pulse-level firing metadata:
-- `data/validation3_cross_backend_deep_today5.json`
-- `docs/deep_check_today5.md`
-
-### Marrakesh Deep Validation (Today6)
-
-Marrakesh-only deep rerun (`6400dt`, `8000dt`) across Q6/Q8/Q12:
-- Aggregate: `data/marrakesh/validation3_marrakesh_deep_aggregate_today6.json`
-- vs X: 6/6, vs BB1: 6/6, vs XY4: 5/6 (`mean dXY4 = +0.0677`)
-- Detailed note: `docs/marrakesh_deep_today6.md`
-
-Quick links:
-- Slot table: `docs/torino_table.md`
-- Deep-time curve: `docs/figures/deep_time_decay_curve.png`
-- Scaling chart: `docs/figures/lattice_scaling_bar_chart.png`
-- Delta heatmap: `docs/figures/heatmap_dxy4.png`
-
-### Deep-Time Rescue at 8000dt
-
-| Lattice Density | XY4 Baseline | CONTOUR | Relative Gain |
-|:--|--:|--:|--:|
-| Sparse (6-Qubit) | 13.3% | **29.7%** | **2.2x** |
-| Medium (8-Qubit) | 9.0% | **15.6%** | **1.7x** |
-| Dense (12-Qubit) | 2.7% | **8.2%** | **3.0x** |
-
-In the dense Q12 deep-time regime, CONTOUR remains strongly positive and outperforms baseline XY4 at the longest windows.
-
-### Aggregate Sweep Performance (12 Slots)
-
-- **vs X:** 12 / 12 wins (`+0.1966` mean absolute gain)
-- **vs BB1:** 12 / 12 wins (`+0.0833` mean absolute gain)
-- **vs XY4:** 11 / 12 wins (`+0.0531` mean absolute gain)
-- **No-drift ceiling headroom:** `+0.0159` mean absolute fidelity
-
-### Q12 Deep-Window Trace (CONTOUR vs XY4)
-
-| Window (dt) | XY4 | CONTOUR | Delta |
-|--:|--:|--:|--:|
-| 3200 | 0.2812 | 0.3125 | +0.0312 |
-| 4912 | 0.1113 | 0.1348 | +0.0234 |
-| 6400 | 0.0684 | 0.1152 | +0.0469 |
-| 8000 | 0.0273 | 0.0820 | +0.0547 |
-
----
-
-## Visualizing the Results
-
-### 1) Deep-Time Survival (Q12)
-![Deep-Time Decay Curve](docs/figures/deep_time_decay_curve.png)
-
-CONTOUR maintains stronger fidelity at long windows where baseline methods degrade.
-
-### 2) Lattice Scaling at 8000dt
-![Lattice Scaling](docs/figures/lattice_scaling_bar_chart.png)
-
-As active lattice density increases, CONTOUR preserves a larger fraction of usable signal in deep-time operation.
-
-### 3) Slot-Wise Delta vs XY4
-![Delta Heatmap vs XY4](docs/figures/heatmap_dxy4.png)
-
-Positive cells represent per-slot CONTOUR uplift against XY4.
-
-### 4) Per-Lattice Decay Curves
-
-| q6 | q8 |
-|:--:|:--:|
-| ![q6 decay](docs/figures/decay_q6.png) | ![q8 decay](docs/figures/decay_q8.png) |
-
-| q12 |
-|:--:|
-| ![q12 decay](docs/figures/decay_q12.png) |
-
----
-
-## Included Public Artifacts
-
-- Raw run outputs: `data/torino/validation3_torino_full_q*_paritylift.json`
-- Aggregate scorecard: `data/torino/validation3_torino_full_paritylift_aggregate_today.json`
-- Deep rerun outputs: `data/torino/validation3_torino_deep_q*_today2.json`
-- Deep rerun aggregate: `data/torino/validation3_torino_deep_aggregate_today2.json`
-- Cross-backend deep outputs (today5):
-  - `data/marrakesh/validation3_marrakesh_deep_q*_today5.json`
-  - `data/torino/validation3_torino_deep_q*_today5.json`
-  - `data/marrakesh/validation3_marrakesh_deep_aggregate_today5.json`
-  - `data/torino/validation3_torino_deep_aggregate_today5.json`
-  - `data/validation3_cross_backend_deep_today5.json`
-- Marrakesh deep outputs (today6):
-  - `data/marrakesh/validation3_marrakesh_deep_q*_today6.json`
-  - `data/marrakesh/validation3_marrakesh_deep_aggregate_today6.json`
-  - `docs/marrakesh_deep_today6.md`
-- Exploratory Marrakesh deep outputs: `data/marrakesh/validation3_marrakesh_deep_q*_firsttest.json`
-- Exploratory Marrakesh deep aggregate: `data/marrakesh/validation3_marrakesh_deep_aggregate_firsttest.json`
-- Marrakesh first-test summary: `docs/marrakesh_deep_firsttest.md`
-- Figures: `docs/figures/*.png`
-- Slot table: `docs/torino_table.md`
-- Deep table: `docs/deep_check_today2.md`
-
-## Not Included (Proprietary)
-
-- Compiler source code
-- Calibration daemon code
-- Internal generation and runtime scripts
-- Method derivations and scheduling internals
-- Parameterization and policy logic used in production
-
----
+- [reports/fireopal_vs_pqmcf_summary_20260418.md](reports/fireopal_vs_pqmcf_summary_20260418.md)
+- [docs/fireopal_matched_results.md](docs/fireopal_matched_results.md)
+
+## Repository Map
+
+| Path | Contents |
+| --- | --- |
+| `docs/` | Public benchmark notes, figures, and result summaries. |
+| `reports/` | Technical reports and comparison packets. |
+| `reports/licensing_evidence/` | Evidence artifacts for Black-Scholes and protected-runtime claims. |
+| `data/` | JSON run artifacts and benchmark outputs. |
+
+## Reviewer Path
+
+For a fast technical review:
+
+1. [DEMONSTRATIONS.md](DEMONSTRATIONS.md)
+2. [reports/licensing_evidence/daemon_black_scholes_corrected_protection_ablation_current_20260528.md](reports/licensing_evidence/daemon_black_scholes_corrected_protection_ablation_current_20260528.md)
+3. [reports/licensing_evidence/daemon_black_scholes_protection_hardening_update_20260528.md](reports/licensing_evidence/daemon_black_scholes_protection_hardening_update_20260528.md)
+4. [reports/validation3_hardware_summary_20260419.md](reports/validation3_hardware_summary_20260419.md)
+5. [reports/fireopal_vs_pqmcf_summary_20260418.md](reports/fireopal_vs_pqmcf_summary_20260418.md)
 
 ## Contact
-
-For benchmark verification, compute-access discussions, technical review, or partnership inquiries:
 
 Parthiv Maddipatla  
 TJHSST  
 2027pmaddipa@tjhsst.edu  
 https://github.com/ParthivM1
+

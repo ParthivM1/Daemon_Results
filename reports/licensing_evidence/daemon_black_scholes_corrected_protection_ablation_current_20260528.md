@@ -1,0 +1,32 @@
+# Daemon Black-Scholes Protection Ablation
+
+Generated: `2026-05-29T03:36:37.838325+00:00`
+
+| Rank | Method | Job | Pass | Estimate | Corrected Error+CI | Artifact Error+CI | QPU s | Speedup | Qubits |
+| ---: | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| 1 | `real-only+sign-symmetry+phase-zero+full-stack-policy+protected-layout+layout-candidates4+512shots` | `d8c98ij8ch0s738ugrug` | `True` | `$0.6205121893` | `0.055871195` | `0.088654034` | `3.000` | `250.902x` | `7` |
+| 2 | `real-only+hamming-compressed-phase+sign-symmetry+full-stack-policy+protected-layout+layout-candidates4+512shots` | `d8bl9nr8amns73bid49g` | `True` | `$0.6190347052` | `0.057348679` | `0.090131518` | `3.000` | `250.902x` | `4` |
+| 3 | `real-only+hamming-compressed-phase+sign-symmetry+phase-zero+full-stack-policy+protected-layout+layout-candidates4+512shots` | `d8cg2dqjki0s73ar7mbg` | `True` | `$0.6168661833` | `0.059517201` | `0.059517201` | `3.000` | `250.902x` | `4` |
+| 4 | `real-only+sign-symmetry+protected-layout+512shots` | `d8bji0s7avuc73dpnhv0` | `True` | `$0.6328187232` | `0.061124328` | `0.0763475` | `3.000` | `250.902x` | `7` |
+| 5 | `real-only+hamming-compressed-phase+sign-symmetry+phase-zero+tsme-phase-shelter+contour-phase-ordering+full-stack-policy+protected-layout+layout-candidates4+512shots` | `d8cdqmqjki0s73ar4j70` | `True` | `$0.5931180336` | `0.083265351` | `0.083265351` | `3.000` | `250.902x` | `5` |
+| 6 | `real-only+hamming-compressed-phase+sign-symmetry+phase-zero+tsme-phase-shelter+contour-phase-echo+x-xx-echo+full-stack-policy+protected-layout+layout-candidates4+512shots` | `d8ccdpijki0s73ar2mc0` | `True` | `$0.5704078967` | `0.10597549` | `0.13875833` | `3.000` | `250.902x` | `5` |
+| 7 | `real-only+hamming-compressed-phase+sign-symmetry+phase-zero+tsme-phase-shelter+tsme-terminal-mirror+contour-phase-ordering+full-stack-policy+protected-layout+layout-candidates4+512shots` | `d8cgeur8ch0s738uro0g` | `True` | `$0.5622581304` | `0.11412525` | `0.11412525` | `3.000` | `250.902x` | `5` |
+| 8 | `real-only+hamming-compressed-phase+sign-symmetry+phase-zero+tsme-phase-shelter+tsme-terminal-mirror+contour-phase-ordering+full-stack-policy+protected-layout+layout-candidates4+512shots` | `d8cggss7avuc73dqvm7g` | `True` | `$0.5360632305` | `0.14290185` | `0.14290185` | `3.000` | `250.902x` | `5` |
+
+## Selected Protection Modules
+
+- Rank 1 `real-only+sign-symmetry+phase-zero+full-stack-policy+protected-layout+layout-candidates4+512shots`: `readout_support_calibration, protected_layout, real_only_phase_alignment, sign_symmetric_phase_cancellation, transpilation_scored_layout_selector, phase_zero_visibility_calibration`; CONTOUR risk `medium`, X/XX risk `medium`.
+- Rank 2 `real-only+hamming-compressed-phase+sign-symmetry+full-stack-policy+protected-layout+layout-candidates4+512shots`: `readout_support_calibration, protected_layout, real_only_phase_alignment, sign_symmetric_phase_cancellation, transpilation_scored_layout_selector, spectral_hamming_phase_compression`; CONTOUR risk `medium`, X/XX risk `medium`.
+- Rank 3 `real-only+hamming-compressed-phase+sign-symmetry+phase-zero+full-stack-policy+protected-layout+layout-candidates4+512shots`: `readout_support_calibration, protected_layout, real_only_phase_alignment, sign_symmetric_phase_cancellation, transpilation_scored_layout_selector, spectral_hamming_phase_compression, phase_zero_visibility_calibration`; CONTOUR risk `medium`, X/XX risk `medium`.
+- Rank 4 `real-only+sign-symmetry+protected-layout+512shots`: `readout_support_calibration, protected_layout, real_only_phase_alignment, sign_symmetric_phase_cancellation`; CONTOUR risk `n/a`, X/XX risk `n/a`.
+- Rank 5 `real-only+hamming-compressed-phase+sign-symmetry+phase-zero+tsme-phase-shelter+contour-phase-ordering+full-stack-policy+protected-layout+layout-candidates4+512shots`: `readout_support_calibration, protected_layout, real_only_phase_alignment, sign_symmetric_phase_cancellation, transpilation_scored_layout_selector, spectral_hamming_phase_compression, phase_zero_visibility_calibration, contour_phase_ordering, tsme_semantic_phase_shelter`; CONTOUR risk `medium`, X/XX risk `medium`.
+- Rank 6 `real-only+hamming-compressed-phase+sign-symmetry+phase-zero+tsme-phase-shelter+contour-phase-echo+x-xx-echo+full-stack-policy+protected-layout+layout-candidates4+512shots`: `readout_support_calibration, protected_layout, real_only_phase_alignment, sign_symmetric_phase_cancellation, transpilation_scored_layout_selector, spectral_hamming_phase_compression, phase_zero_visibility_calibration, contour_toroidal_phase_echo, x_xx_phase_echo, tsme_semantic_phase_shelter`; CONTOUR risk `medium`, X/XX risk `medium`.
+- Rank 7 `real-only+hamming-compressed-phase+sign-symmetry+phase-zero+tsme-phase-shelter+tsme-terminal-mirror+contour-phase-ordering+full-stack-policy+protected-layout+layout-candidates4+512shots`: `readout_support_calibration, protected_layout, real_only_phase_alignment, sign_symmetric_phase_cancellation, transpilation_scored_layout_selector, spectral_hamming_phase_compression, phase_zero_visibility_calibration, contour_phase_ordering, tsme_semantic_phase_shelter, tsme_terminal_mirror_decode`; CONTOUR risk `medium`, X/XX risk `medium`.
+- Rank 8 `real-only+hamming-compressed-phase+sign-symmetry+phase-zero+tsme-phase-shelter+tsme-terminal-mirror+contour-phase-ordering+full-stack-policy+protected-layout+layout-candidates4+512shots`: `readout_support_calibration, protected_layout, real_only_phase_alignment, sign_symmetric_phase_cancellation, transpilation_scored_layout_selector, spectral_hamming_phase_compression, phase_zero_visibility_calibration, contour_phase_ordering, tsme_semantic_phase_shelter, tsme_terminal_mirror_decode`; CONTOUR risk `medium`, X/XX risk `medium`.
+
+## Boundary
+
+- This is an ablation over protection policies, not an independent classical-method comparison.
+- DD/XY4 passed but worsened this shallow phase estimator, so it is not selected for production.
+- Sign symmetry improved the protection story and retained >50x speedup.
+- Hamming phase compression reduces physical qubits/2Q pressure, but the selector should choose it only when its measured error beats the sign-symmetric branch.
