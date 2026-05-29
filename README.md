@@ -38,32 +38,16 @@ Important boundary:
 - Speedup numbers in this repo belong to the exact benchmark assumptions and reports that produce them.
 - The repo is evidence-facing, not an IP disclosure.
 
-## Visual Summary
-
-The full public story is in [docs/daemon_results_story_20260529.md](docs/daemon_results_story_20260529.md). These figures summarize the current evidence package.
-
-| Runtime stack | Fire Opal comparison |
-| --- | --- |
-| ![Daemon runtime stack](docs/figures/daemon_stack_story.svg) | ![Fire Opal matched benchmark gaps](docs/figures/fireopal_gap_bar.svg) |
-
-| Black-Scholes protection ablation | CONTOUR deep-window protection |
-| --- | --- |
-| ![Black-Scholes protection ablation](docs/figures/black_scholes_ablation_error.svg) | ![CONTOUR deep-window summary](docs/figures/contour_deep_summary.svg) |
-
 ## Demonstrations
 
-Start with the polished results story:
-
-[docs/daemon_results_story_20260529.md](docs/daemon_results_story_20260529.md)
-
-Then see [DEMONSTRATIONS.md](DEMONSTRATIONS.md) for the artifact-by-artifact demo index.
+See [DEMONSTRATIONS.md](DEMONSTRATIONS.md) for the main public demo index.
 
 | Demonstration | Artifact |
 | --- | --- |
 | Black-Scholes scalar benchmark | [Black-Scholes protection ablation](reports/licensing_evidence/daemon_black_scholes_corrected_protection_ablation_current_20260528.md) |
 | TSME/CONTOUR hardening | [Protection hardening update](reports/licensing_evidence/daemon_black_scholes_protection_hardening_update_20260528.md) |
-| CONTOUR deep-window hardware benchmark | [Results summary](docs/results.md) |
-| Fire Opal comparison packet | [Matched results](docs/fireopal_matched_results.md) |
+| CONTOUR deep-window hardware benchmark | [Hardware summary](reports/validation3_hardware_summary_20260419.md) |
+| Fire Opal comparison packet | [Fire Opal summary](reports/fireopal_vs_pqmcf_summary_20260418.md) |
 | Earlier public benchmark brief | [docs/results.md](docs/results.md) |
 
 ## Core Runtime Methods
@@ -110,7 +94,7 @@ CONTOUR was tested against baseline and XY4-style schedules over deeper hardware
 
 Report:
 
-[docs/results.md](docs/results.md)
+[reports/validation3_hardware_summary_20260419.md](reports/validation3_hardware_summary_20260419.md)
 
 ### Fire Opal Comparison
 
@@ -118,8 +102,8 @@ The repo includes matched Fire Opal comparison packets. These should be read wit
 
 Reports:
 
+- [reports/fireopal_vs_pqmcf_summary_20260418.md](reports/fireopal_vs_pqmcf_summary_20260418.md)
 - [docs/fireopal_matched_results.md](docs/fireopal_matched_results.md)
-- [docs/results.md](docs/results.md)
 
 ## Repository Map
 
@@ -134,11 +118,11 @@ Reports:
 
 For a fast technical review:
 
-1. [docs/daemon_results_story_20260529.md](docs/daemon_results_story_20260529.md)
-2. [DEMONSTRATIONS.md](DEMONSTRATIONS.md)
-3. [reports/licensing_evidence/daemon_black_scholes_corrected_protection_ablation_current_20260528.md](reports/licensing_evidence/daemon_black_scholes_corrected_protection_ablation_current_20260528.md)
-4. [reports/licensing_evidence/daemon_black_scholes_protection_hardening_update_20260528.md](reports/licensing_evidence/daemon_black_scholes_protection_hardening_update_20260528.md)
-5. [docs/fireopal_matched_results.md](docs/fireopal_matched_results.md)
+1. [DEMONSTRATIONS.md](DEMONSTRATIONS.md)
+2. [reports/licensing_evidence/daemon_black_scholes_corrected_protection_ablation_current_20260528.md](reports/licensing_evidence/daemon_black_scholes_corrected_protection_ablation_current_20260528.md)
+3. [reports/licensing_evidence/daemon_black_scholes_protection_hardening_update_20260528.md](reports/licensing_evidence/daemon_black_scholes_protection_hardening_update_20260528.md)
+4. [reports/validation3_hardware_summary_20260419.md](reports/validation3_hardware_summary_20260419.md)
+5. [reports/fireopal_vs_pqmcf_summary_20260418.md](reports/fireopal_vs_pqmcf_summary_20260418.md)
 
 ## Contact
 
