@@ -1,15 +1,10 @@
 # Daemon
 
-Daemon is a protected quantum runtime stack for turning structured mathematical workloads into hardware-executable quantum routes, protecting those routes on noisy devices, and producing evidence-bounded reports from live IBM hardware runs.
+This repository contains public benchmark results for Daemon, a quantum runtime stack for structured workloads on noisy IBM hardware. The current results focus on protected execution, high-dimensional Black-Scholes/Feynman-Kac scalar routing, CONTOUR drift protection, and matched Fire Opal comparisons.
 
-This repository is the public results package. It is intentionally not the full compiler/runtime source release. The goal here is to show what was run, what was measured, what improved, and where the claim boundaries are.
+The repository is results-facing. It does not include the full compiler, production selector, calibration policy, or proof-level method details.
 
-![Hardware](https://img.shields.io/badge/hardware-IBM%20Quantum-0a66c2)
-![Focus](https://img.shields.io/badge/focus-protected%20runtime-success)
-![Application](https://img.shields.io/badge/application-Black--Scholes%20%2F%20Feynman--Kac-blue)
-![Scope](https://img.shields.io/badge/scope-public%20results-lightgrey)
-
-## Headline Results
+## Summary of Public Results
 
 | Evidence lane | Public result |
 | --- | --- |
@@ -18,27 +13,19 @@ This repository is the public results package. It is intentionally not the full 
 | CONTOUR deep-time protection | Torino aggregate: `12/12` wins vs X, `12/12` wins vs BB1, `11/12` wins vs XY4, mean gain vs XY4 `+0.0531`; deep-only confirmation reports `6/6` wins vs X, BB1, and XY4. |
 | Protection ablation | The Black-Scholes route compares phase-zero support, sign symmetry, protected layouts, Hamming phase compression, TSME sheltering, CONTOUR ordering, terminal mirror decode, and X/XX echo variants on the same application target. |
 
-The short technical read:
+## Reports
 
-```text
-Daemon is not just a circuit-shortening pass.
-It is a route-aware protected execution stack:
-problem route -> circuit route -> protection selection -> IBM execution -> evidence report.
-```
-
-## Result Story
-
-The full public narrative is here:
+Detailed result narrative:
 
 [docs/evidence_story_20260529.md](docs/evidence_story_20260529.md)
 
-The artifact-by-artifact demo index is here:
+Artifact index:
 
 [DEMONSTRATIONS.md](DEMONSTRATIONS.md)
 
 ## 1. Black-Scholes / Feynman-Kac Scalar Route
 
-The application lane is a high-dimensional Black-Scholes basket PDE routed through a Feynman-Kac scalar expectation. The public claim is not "full PDE surface solve." The public claim is that Daemon routes a PDE-derived scalar target into a hardware-executable quantum route and reports live IBM evidence with an independent target check.
+The application lane is a high-dimensional Black-Scholes basket PDE routed through a Feynman-Kac scalar expectation. The reported target is a scalar value, not a full PDE surface.
 
 Route:
 
@@ -68,7 +55,7 @@ Primary report:
 
 [reports/licensing_evidence/daemon_black_scholes_corrected_protection_ablation_current_20260528.md](reports/licensing_evidence/daemon_black_scholes_corrected_protection_ablation_current_20260528.md)
 
-## Runtime Components
+## Runtime Components Used in the Black-Scholes Runs
 
 These are the runtime pieces referenced in the Black-Scholes ablation. Names are kept close to the run labels so the table below can be checked against the reports.
 
@@ -96,7 +83,7 @@ Source basis for this section: [Black-Scholes protection ablation][component-sou
 
 ## 2. Black-Scholes Protection Ablation
 
-This is the clearest application-layer runtime result. The same scalar route was run with several Daemon protection/circuit branches.
+The same scalar route was run with several Daemon protection/circuit branches.
 
 ![Black-Scholes protection ablation](docs/figures/black_scholes_ablation_actual.png)
 
@@ -123,7 +110,7 @@ What the ablation says:
 | CONTOUR echo + X/XX echo | Available, but too expensive for this specific shallow route in the current report. |
 | TSME terminal mirror | Physically implemented and measured; selector-gated because forced deployment worsened this route. |
 
-This is the point of the selector: protection is useful only when the benefit beats the implementation tax. Daemon records the branch behavior instead of forcing every novel layer onto every circuit.
+The ablation shows that protection has to be selected by circuit regime. On this shallow Black-Scholes route, the best branch is low-tax phase support rather than the heaviest TSME/CONTOUR/X-XX branch.
 
 Hardening report:
 
@@ -131,7 +118,7 @@ Hardening report:
 
 ## 3. Matched Fire Opal Comparisons
 
-Daemon/PQMCF has completed matched wins against Q-CTRL Fire Opal on several live IBM workloads. The graph below includes both completed Daemon wins and repeatability reruns where Fire Opal wins, so the comparison is visible rather than cherry-picked.
+Daemon/PQMCF has completed matched wins against Q-CTRL Fire Opal on several live IBM workloads. The graph includes both completed Daemon wins and repeatability reruns where Fire Opal wins.
 
 ![Matched Fire Opal comparison gaps](docs/figures/fireopal_matched_gaps_actual.png)
 
@@ -155,12 +142,7 @@ Repeatability reruns:
 | TFIM mixed n16 v6 repeat | IBM Marrakesh | 0.882243 | 0.895440 | -0.013197 |
 | XY ring n16 v12 repeat | IBM Marrakesh | 0.970332 | 0.975651 | -0.005319 |
 
-Supported read:
-
-```text
-Daemon has benchmark-scoped matched wins against Fire Opal on live IBM hardware.
-Universal Fire Opal dominance is not claimed from this public packet.
-```
+These results should be read as benchmark-scoped matched wins, not a general dominance claim across all workloads or calibration windows.
 
 Primary artifact:
 
@@ -207,23 +189,23 @@ Primary artifacts:
 | Deep check today 5 | [docs/deep_check_today5.md](docs/deep_check_today5.md) |
 | Marrakesh deep run | [docs/marrakesh_deep_today6.md](docs/marrakesh_deep_today6.md) |
 
-## 5. Core Protection Concepts
+## 5. Method Notes
 
 ### TSME
 
-TSME is Daemon's semantic protection layer. It treats the useful logical object as a structured state that should remain inside a protected semantic channel, rather than as an unprotected local amplitude. In the current Black-Scholes runner, TSME appears as phase sheltering and optional terminal mirror decode. The hardening pass added agreement gating, calibrated two-bit mirror decoding, auto decode selection, and no-harm selection.
+TSME is the semantic protection branch. In the current Black-Scholes runner, it appears as phase sheltering and optional terminal mirror decode. The hardening pass added agreement gating, calibrated two-bit mirror decoding, auto decode selection, and no-harm selection.
 
 ### CONTOUR
 
-CONTOUR is Daemon's phase/drift protection layer. In shallow scalar routes, low-tax CONTOUR ordering balances phase-channel load without doubling the circuit. In deeper protection benchmarks, CONTOUR is evaluated against baseline and XY4-style schedules where drift exposure is larger.
+CONTOUR is the phase/drift protection branch. In shallow scalar routes, low-tax CONTOUR ordering balances phase-channel load without doubling the circuit. In deeper protection benchmarks, CONTOUR is evaluated against baseline and XY4-style schedules where drift exposure is larger.
 
 ### X/XX Handling
 
-X/XX handling targets transverse pressure and echo-style cancellation around protected paths. The Black-Scholes ablation shows that heavy echo branches can hurt shallow routes; the value is in selector-gated deployment, not always-on activation.
+X/XX handling targets transverse pressure and echo-style cancellation around protected paths. The Black-Scholes ablation shows that heavy echo branches can hurt shallow routes, so these branches are deployed only when their added circuit cost is justified.
 
 ### Selector
 
-The selector is part of the runtime, not an afterthought. It decides whether a circuit should use light support, compression, TSME/CONTOUR sheltering, heavy echo paths, or no-harm fallback. The Black-Scholes ablation is evidence for why this matters: the best branch is not the heaviest branch.
+The selector chooses between light support, compression, TSME/CONTOUR sheltering, heavy echo paths, or no-harm fallback. The Black-Scholes ablation shows why this matters: the best branch is not always the heaviest branch.
 
 ## 6. Repository Map
 
@@ -234,26 +216,25 @@ The selector is part of the runtime, not an afterthought. It decides whether a c
 | `reports/licensing_evidence/` | Black-Scholes and protection hardening reports. |
 | `data/` | Public JSON artifacts for the deep-window benchmark set. |
 
-## 7. Claim Boundary
+## 7. Discussion and Limits
+
+The strongest public evidence is the combination of an application-linked Black-Scholes scalar route, deep-window CONTOUR protection data, and matched Fire Opal comparison tables. The Black-Scholes result is most useful as an application-route demonstration: it connects the runtime stack to a PDE-derived scalar target and shows which protection branches help or hurt on that route.
 
 Supported by this public repo:
 
-```text
-Daemon is a route-aware protected quantum runtime with live IBM evidence across
-Black-Scholes/Feynman-Kac scalar routing, CONTOUR deep-time protection, and
-matched Fire Opal comparison workloads.
-```
+- Daemon has live IBM evidence for a Black-Scholes/Feynman-Kac scalar route.
+- Daemon has public CONTOUR deep-window protection evidence.
+- Daemon has benchmark-scoped matched Fire Opal wins.
+- Daemon has protection ablations showing which branches helped this route.
 
 Not claimed from this public repo:
 
-```text
-Daemon solves arbitrary PDEs.
-Daemon solves a full PDE surface on quantum hardware.
-Daemon universally beats Fire Opal.
-Daemon has proven general commercial Black-Scholes quantum advantage.
-```
+- Daemon solves arbitrary PDEs.
+- Daemon solves a full PDE surface on quantum hardware.
+- Daemon universally beats Fire Opal.
+- Daemon has proven general commercial Black-Scholes quantum advantage.
 
-Those are larger claims and require broader frozen repeated validation.
+Those claims require broader frozen repeated validation than what is included here.
 
 ## 8. Fast Reviewer Path
 
