@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="430" viewBox="0 0 1200 430" role="img" aria-label="Daemon runtime stack">
+  <style>
+    .bg { fill: #0d1117; }
+    .title { fill: #f0f6fc; font: 700 30px Arial, sans-serif; }
+    .sub { fill: #8b949e; font: 16px Arial, sans-serif; }
+    .box { fill: #161b22; stroke: #30363d; stroke-width: 2; rx: 18; }
+    .box2 { fill: #102033; stroke: #2f81f7; stroke-width: 2; rx: 18; }
+    .box3 { fill: #1f2514; stroke: #8ccf4d; stroke-width: 2; rx: 18; }
+    .label { fill: #f0f6fc; font: 700 17px Arial, sans-serif; }
+    .body { fill: #c9d1d9; font: 14px Arial, sans-serif; }
+    .arrow { stroke: #8b949e; stroke-width: 3; marker-end: url(#arrow); }
+  </style>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#8b949e"/>
+    </marker>
+  </defs>
+  <rect class="bg" width="1200" height="430"/>
+  <text class="title" x="50" y="55">Daemon Runtime Story</text>
+  <text class="sub" x="50" y="83">Route-aware quantum execution: choose the right quantum route, protect it, run it, and report bounded evidence.</text>
+
+  <rect class="box" x="50" y="135" width="180" height="135"/>
+  <text class="label" x="75" y="170">Structured Problem</text>
+  <text class="body" x="75" y="200">PDE scalar target</text>
+  <text class="body" x="75" y="222">QAE fragment</text>
+  <text class="body" x="75" y="244">Hamiltonian probe</text>
+
+  <line class="arrow" x1="240" y1="202" x2="300" y2="202"/>
+
+  <rect class="box2" x="315" y="135" width="195" height="135"/>
+  <text class="label" x="343" y="170">Route Compiler</text>
+  <text class="body" x="343" y="200">Feynman-Kac route</text>
+  <text class="body" x="343" y="222">Phase estimator</text>
+  <text class="body" x="343" y="244">Circuit family choice</text>
+
+  <line class="arrow" x1="520" y1="202" x2="580" y2="202"/>
+
+  <rect class="box3" x="595" y="105" width="260" height="195"/>
+  <text class="label" x="625" y="145">Protection Stack</text>
+  <text class="body" x="625" y="177">TSME semantic shelter</text>
+  <text class="body" x="625" y="199">CONTOUR phase/drift control</text>
+  <text class="body" x="625" y="221">X/XX pressure handling</text>
+  <text class="body" x="625" y="243">Phase-zero support</text>
+  <text class="body" x="625" y="265">No-harm selector</text>
+
+  <line class="arrow" x1="865" y1="202" x2="925" y2="202"/>
+
+  <rect class="box2" x="940" y="135" width="210" height="135"/>
+  <text class="label" x="970" y="170">Evidence Engine</text>
+  <text class="body" x="970" y="200">IBM job IDs</text>
+  <text class="body" x="970" y="222">QPU time</text>
+  <text class="body" x="970" y="244">Error, CI, boundary</text>
+
+  <text class="sub" x="50" y="350">Key design rule: Daemon does not blindly apply every protection. The selector activates protection only when diagnostics and routed cost justify it.</text>
+</svg>

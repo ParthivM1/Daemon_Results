@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520" role="img" aria-label="CONTOUR deep-window hardware summary">
+  <style>
+    .bg { fill: #0d1117; }
+    .title { fill: #f0f6fc; font: 700 28px Arial, sans-serif; }
+    .sub { fill: #8b949e; font: 15px Arial, sans-serif; }
+    .axis { stroke: #30363d; stroke-width: 2; }
+    .base { fill: #8b949e; }
+    .xy4 { fill: #d29922; }
+    .contour { fill: #3fb950; }
+    .label { fill: #c9d1d9; font: 14px Arial, sans-serif; }
+    .value { fill: #f0f6fc; font: 700 13px Arial, sans-serif; }
+    .note { fill: #8b949e; font: 13px Arial, sans-serif; }
+  </style>
+  <rect class="bg" width="1200" height="520"/>
+  <text class="title" x="50" y="48">CONTOUR Deep-Window Hardware Evidence</text>
+  <text class="sub" x="50" y="75">Deep mean fidelity from IBM hardware summary. Higher is better.</text>
+
+  <text class="label" x="120" y="120">IBM Fez deep mean</text>
+  <line class="axis" x1="120" y1="390" x2="500" y2="390"/>
+  <rect class="base" x="170" y="383" width="55" height="7"/>
+  <text class="value" x="150" y="410">BASE 0.000488</text>
+  <rect class="xy4" x="270" y="383" width="55" height="7"/>
+  <text class="value" x="255" y="410">XY4 0.000488</text>
+  <rect class="contour" x="370" y="338" width="55" height="52"/>
+  <text class="value" x="350" y="410">CONTOUR 0.003662</text>
+
+  <text class="label" x="660" y="120">IBM Marrakesh deep mean</text>
+  <line class="axis" x1="660" y1="390" x2="1040" y2="390"/>
+  <rect class="base" x="710" y="387" width="55" height="3"/>
+  <text class="value" x="690" y="410">BASE 0.000244</text>
+  <rect class="xy4" x="810" y="205" width="55" height="185"/>
+  <text class="value" x="795" y="410">XY4 0.012939</text>
+  <rect class="contour" x="910" y="100" width="55" height="290"/>
+  <text class="value" x="883" y="410">CONTOUR 0.020264</text>
+
+  <text class="note" x="50" y="475">Source: reports/validation3_hardware_summary_20260419.md in the full PQMCF archive; public result summaries are in docs/results.md and docs figures.</text>
+</svg>

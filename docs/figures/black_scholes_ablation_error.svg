@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560" role="img" aria-label="Black-Scholes protection ablation corrected error plus confidence interval">
+  <style>
+    .bg { fill: #0d1117; }
+    .title { fill: #f0f6fc; font: 700 28px Arial, sans-serif; }
+    .sub { fill: #8b949e; font: 15px Arial, sans-serif; }
+    .axis { stroke: #30363d; stroke-width: 2; }
+    .bar1 { fill: #2f81f7; }
+    .bar2 { fill: #3fb950; }
+    .bar3 { fill: #d29922; }
+    .bar4 { fill: #a371f7; }
+    .bar5 { fill: #f85149; }
+    .label { fill: #c9d1d9; font: 14px Arial, sans-serif; }
+    .value { fill: #f0f6fc; font: 700 14px Arial, sans-serif; }
+    .note { fill: #8b949e; font: 13px Arial, sans-serif; }
+  </style>
+  <rect class="bg" width="1200" height="560"/>
+  <text class="title" x="50" y="48">Black-Scholes Scalar Route: Protection Ablation</text>
+  <text class="sub" x="50" y="75">Lower corrected error+CI is better. All listed rows are live IBM hardware packets from the same scalar route family.</text>
+
+  <line class="axis" x1="410" y1="105" x2="410" y2="470"/>
+  <line class="axis" x1="410" y1="470" x2="1100" y2="470"/>
+
+  <text class="label" x="60" y="128">Phase-zero + sign symmetry + layout</text>
+  <rect class="bar1" x="410" y="112" width="279" height="22"/>
+  <text class="value" x="705" y="129">0.055871</text>
+
+  <text class="label" x="60" y="178">Hamming compression + sign symmetry</text>
+  <rect class="bar2" x="410" y="162" width="287" height="22"/>
+  <text class="value" x="713" y="179">0.057349</text>
+
+  <text class="label" x="60" y="228">Hamming + phase-zero</text>
+  <rect class="bar2" x="410" y="212" width="298" height="22"/>
+  <text class="value" x="724" y="229">0.059517</text>
+
+  <text class="label" x="60" y="278">Sign symmetry only</text>
+  <rect class="bar3" x="410" y="262" width="306" height="22"/>
+  <text class="value" x="732" y="279">0.061124</text>
+
+  <text class="label" x="60" y="328">TSME shelter + CONTOUR ordering</text>
+  <rect class="bar4" x="410" y="312" width="416" height="22"/>
+  <text class="value" x="842" y="329">0.083265</text>
+
+  <text class="label" x="60" y="378">TSME + CONTOUR echo + X/XX</text>
+  <rect class="bar5" x="410" y="362" width="530" height="22"/>
+  <text class="value" x="956" y="379">0.105975</text>
+
+  <text class="label" x="60" y="428">Forced TSME terminal mirror branches</text>
+  <rect class="bar5" x="410" y="412" width="714" height="22"/>
+  <text class="value" x="980" y="429">0.114125 to 0.142902</text>
+
+  <text class="note" x="50" y="515">Interpretation: protection is selector-gated. Heavy branches are implemented and measured, but not forced when implementation tax dominates.</text>
+</svg>

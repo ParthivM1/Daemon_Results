@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520" role="img" aria-label="Daemon versus Fire Opal matched benchmark gaps">
+  <style>
+    .bg { fill: #0d1117; }
+    .title { fill: #f0f6fc; font: 700 28px Arial, sans-serif; }
+    .sub { fill: #8b949e; font: 15px Arial, sans-serif; }
+    .axis { stroke: #30363d; stroke-width: 2; }
+    .win { fill: #3fb950; }
+    .loss { fill: #f85149; }
+    .label { fill: #c9d1d9; font: 14px Arial, sans-serif; }
+    .value { fill: #f0f6fc; font: 700 14px Arial, sans-serif; }
+    .note { fill: #8b949e; font: 13px Arial, sans-serif; }
+  </style>
+  <rect class="bg" width="1200" height="520"/>
+  <text class="title" x="50" y="48">Matched Fire Opal Comparison Snapshot</text>
+  <text class="sub" x="50" y="75">Gap = Daemon/PQMCF best - Fire Opal best. Positive values are Daemon wins. Repeatability caveats are included.</text>
+  <line class="axis" x1="570" y1="105" x2="570" y2="450"/>
+  <text class="note" x="535" y="472">0 gap</text>
+
+  <text class="label" x="60" y="128">TFIM n16 v5, Marrakesh</text>
+  <rect class="win" x="570" y="112" width="317" height="18"/>
+  <text class="value" x="900" y="127">+0.031709</text>
+
+  <text class="label" x="60" y="168">TFIM n16 v4, Kingston</text>
+  <rect class="win" x="570" y="152" width="236" height="18"/>
+  <text class="value" x="820" y="167">+0.023570</text>
+
+  <text class="label" x="60" y="208">TFIM n16 v11, Fez</text>
+  <rect class="win" x="570" y="192" width="104" height="18"/>
+  <text class="value" x="688" y="207">+0.010439</text>
+
+  <text class="label" x="60" y="248">Heisenberg n16 v1, Marrakesh</text>
+  <rect class="win" x="570" y="232" width="89" height="18"/>
+  <text class="value" x="673" y="247">+0.008887</text>
+
+  <text class="label" x="60" y="288">Heisenberg n16 v2, Kingston</text>
+  <rect class="win" x="570" y="272" width="39" height="18"/>
+  <text class="value" x="623" y="287">+0.003891</text>
+
+  <text class="label" x="60" y="328">XY ring n16 v1, Kingston</text>
+  <rect class="win" x="570" y="312" width="35" height="18"/>
+  <text class="value" x="619" y="327">+0.003509</text>
+
+  <text class="label" x="60" y="368">XY ring n16 v8, Fez</text>
+  <rect class="win" x="570" y="352" width="33" height="18"/>
+  <text class="value" x="617" y="367">+0.003309</text>
+
+  <text class="label" x="60" y="408">XY ring n16 v4, Marrakesh</text>
+  <rect class="win" x="570" y="392" width="21" height="18"/>
+  <text class="value" x="605" y="407">+0.002082</text>
+
+  <text class="label" x="60" y="448">Repeat reruns, Marrakesh</text>
+  <rect class="loss" x="438" y="432" width="132" height="18"/>
+  <text class="value" x="312" y="447">-0.013197 / -0.005319</text>
+
+  <text class="note" x="50" y="502">Source: docs/fireopal_matched_results.md. Claim boundary: benchmark-scoped wins, not universal external SOTA.</text>
+</svg>
