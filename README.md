@@ -68,11 +68,11 @@ Primary report:
 
 [reports/licensing_evidence/daemon_black_scholes_corrected_protection_ablation_current_20260528.md](reports/licensing_evidence/daemon_black_scholes_corrected_protection_ablation_current_20260528.md)
 
-## Protection Glossary
+## Runtime Components
 
-Short definitions below are sourced from the current Black-Scholes ablation report and the protection hardening update only. The glossary is intentionally architecture-level; implementation details and private selector logic are not disclosed. [[1]](reports/licensing_evidence/daemon_black_scholes_corrected_protection_ablation_current_20260528.md) [[2]](reports/licensing_evidence/daemon_black_scholes_protection_hardening_update_20260528.md)
+These are the runtime pieces referenced in the Black-Scholes ablation. Names are kept close to the run labels so the table below can be checked against the reports.
 
-| Term | One-sentence explanation |
+| Component | What it does |
 | --- | --- |
 | `readout_support_calibration` | Support calibration estimates measurement/readout behavior so reported phase-route estimates are not treated as raw uncalibrated counts. |
 | `protected_layout` | Protected layout selection routes the circuit through a hardware layout chosen as part of Daemon's execution policy rather than blindly accepting an arbitrary physical mapping. |
@@ -91,6 +91,8 @@ Short definitions below are sourced from the current Black-Scholes ablation repo
 | `mirror_agreement_gate` | The agreement gate rejects mirror packets when shelter/ancilla agreement falls below the frozen diagnostic threshold. |
 | `effective_shot_ci_correction` | Effective-shot correction widens confidence intervals when filtering or postselection reduces the number of usable logical shots. |
 | `no_harm_selector` | The no-harm selector disables optional physical protection when routed depth, two-qubit pressure, or diagnostics predict the branch will hurt more than help. |
+
+Source basis for this section: [Black-Scholes protection ablation][component-source-1] and [protection hardening update][component-source-2]. The descriptions are architecture-level and omit private selector parameters and implementation details.
 
 ## 2. Black-Scholes Protection Ablation
 
@@ -269,3 +271,5 @@ TJHSST
 2027pmaddipa@tjhsst.edu  
 https://github.com/ParthivM1
 
+[component-source-1]: reports/licensing_evidence/daemon_black_scholes_corrected_protection_ablation_current_20260528.md
+[component-source-2]: reports/licensing_evidence/daemon_black_scholes_protection_hardening_update_20260528.md
