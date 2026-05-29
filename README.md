@@ -40,14 +40,18 @@ Important boundary:
 
 ## Demonstrations
 
-See [DEMONSTRATIONS.md](DEMONSTRATIONS.md) for the main public demo index.
+Start with the full evidence story:
+
+[docs/evidence_story_20260529.md](docs/evidence_story_20260529.md)
+
+Then see [DEMONSTRATIONS.md](DEMONSTRATIONS.md) for the artifact-by-artifact demo index.
 
 | Demonstration | Artifact |
 | --- | --- |
 | Black-Scholes scalar benchmark | [Black-Scholes protection ablation](reports/licensing_evidence/daemon_black_scholes_corrected_protection_ablation_current_20260528.md) |
 | TSME/CONTOUR hardening | [Protection hardening update](reports/licensing_evidence/daemon_black_scholes_protection_hardening_update_20260528.md) |
-| CONTOUR deep-window hardware benchmark | [Hardware summary](reports/validation3_hardware_summary_20260419.md) |
-| Fire Opal comparison packet | [Fire Opal summary](reports/fireopal_vs_pqmcf_summary_20260418.md) |
+| CONTOUR deep-window hardware benchmark | [Results summary](docs/results.md) |
+| Fire Opal comparison packet | [Matched Fire Opal results](docs/fireopal_matched_results.md) |
 | Earlier public benchmark brief | [docs/results.md](docs/results.md) |
 
 ## Core Runtime Methods
@@ -94,7 +98,7 @@ CONTOUR was tested against baseline and XY4-style schedules over deeper hardware
 
 Report:
 
-[reports/validation3_hardware_summary_20260419.md](reports/validation3_hardware_summary_20260419.md)
+[docs/results.md](docs/results.md)
 
 ### Fire Opal Comparison
 
@@ -102,8 +106,8 @@ The repo includes matched Fire Opal comparison packets. These should be read wit
 
 Reports:
 
-- [reports/fireopal_vs_pqmcf_summary_20260418.md](reports/fireopal_vs_pqmcf_summary_20260418.md)
 - [docs/fireopal_matched_results.md](docs/fireopal_matched_results.md)
+- [docs/results.md](docs/results.md)
 
 ## Repository Map
 
@@ -118,11 +122,11 @@ Reports:
 
 For a fast technical review:
 
-1. [DEMONSTRATIONS.md](DEMONSTRATIONS.md)
-2. [reports/licensing_evidence/daemon_black_scholes_corrected_protection_ablation_current_20260528.md](reports/licensing_evidence/daemon_black_scholes_corrected_protection_ablation_current_20260528.md)
-3. [reports/licensing_evidence/daemon_black_scholes_protection_hardening_update_20260528.md](reports/licensing_evidence/daemon_black_scholes_protection_hardening_update_20260528.md)
-4. [reports/validation3_hardware_summary_20260419.md](reports/validation3_hardware_summary_20260419.md)
-5. [reports/fireopal_vs_pqmcf_summary_20260418.md](reports/fireopal_vs_pqmcf_summary_20260418.md)
+1. [docs/evidence_story_20260529.md](docs/evidence_story_20260529.md)
+2. [DEMONSTRATIONS.md](DEMONSTRATIONS.md)
+3. [reports/licensing_evidence/daemon_black_scholes_corrected_protection_ablation_current_20260528.md](reports/licensing_evidence/daemon_black_scholes_corrected_protection_ablation_current_20260528.md)
+4. [reports/licensing_evidence/daemon_black_scholes_protection_hardening_update_20260528.md](reports/licensing_evidence/daemon_black_scholes_protection_hardening_update_20260528.md)
+5. [docs/fireopal_matched_results.md](docs/fireopal_matched_results.md)
 
 ## Contact
 
