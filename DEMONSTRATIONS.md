@@ -2,15 +2,15 @@
 
 Updated 2026-05-29.
 
-This is the quick demonstration index. It points to the actual public result artifacts and uses data-driven plots from the benchmark tables.
+This is the demonstration index for the public result artifacts. It uses the same data-driven plots and tables as the README.
 
-Full story:
+Full evidence summary:
 
 [docs/evidence_story_20260529.md](docs/evidence_story_20260529.md)
 
 ## 1. Black-Scholes / Feynman-Kac Scalar Route
 
-Daemon ran a Black-Scholes/Feynman-Kac scalar route on IBM hardware. The workload is a high-dimensional stochastic-pricing scalar target routed through a quantum-executable expectation/phase-estimation path.
+Daemon ran a Black-Scholes/Feynman-Kac scalar route on IBM hardware. The workload is a high-dimensional stochastic-pricing scalar target routed through an expectation/phase-estimation path.
 
 Best corrected live branch:
 
@@ -53,7 +53,7 @@ Daemon compared multiple protection and circuit routes on the same scalar target
 | 7 | TSME terminal mirror + matrix decoder | `0.11412525` | `3.000` | `5` |
 | 8 | TSME terminal mirror + auto decoder | `0.14290185` | `3.000` | `5` |
 
-What this demonstrates:
+Observed role:
 
 | Module | Observed behavior |
 | --- | --- |
@@ -71,7 +71,7 @@ Report:
 
 [reports/licensing_evidence/daemon_black_scholes_protection_hardening_update_20260528.md](reports/licensing_evidence/daemon_black_scholes_protection_hardening_update_20260528.md)
 
-What this demonstrates:
+Observed role:
 
 | Feature | Meaning |
 | --- | --- |

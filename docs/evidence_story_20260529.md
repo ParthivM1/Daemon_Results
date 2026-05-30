@@ -1,12 +1,12 @@
-# Daemon Evidence Story
+# Daemon Evidence Summary
 
 Updated 2026-05-29.
 
-This is the technical story for the public Daemon results repository. It uses the actual benchmark tables and graph artifacts in this repo; no compiler internals, route scoring weights, private calibration policy, or unpublished derivations are disclosed.
+This note summarizes the public Daemon result artifacts. It uses the benchmark tables and graph files in this repo; compiler internals, route scoring weights, calibration policy, and unpublished derivations are not included.
 
-## 1. What The Repository Shows
+## 1. Repository Scope
 
-Daemon is a protected quantum runtime stack. The public evidence has three main lanes:
+The public evidence has three main lanes:
 
 | Lane | Evidence |
 | --- | --- |
@@ -14,7 +14,7 @@ Daemon is a protected quantum runtime stack. The public evidence has three main 
 | Fire Opal comparisons | Matched benchmark packets where Daemon/PQMCF beats Fire Opal on several IBM workloads, with repeatability caveats shown explicitly. |
 | Black-Scholes/Feynman-Kac scalar route | A PDE-derived scalar route that runs on IBM hardware and reports job IDs, QPU time, estimate, independent target, and protection ablation. |
 
-The important point is not that every branch wins. The important point is that Daemon measures the branch behavior, records the failure modes, and uses a selector/no-harm policy instead of blindly applying every protection scheme.
+The results are branch-specific. Some protection branches help this route, and some add too much overhead. The reports keep those outcomes visible instead of reducing the project to a single best-case number.
 
 ## 2. Matched Fire Opal Comparisons
 
@@ -48,7 +48,7 @@ Interpretation:
 | --- | --- |
 | Strongest matched win | +0.031709 on TFIM mixed n16 v5, IBM Marrakesh. |
 | Cross-backend coverage | Completed wins include Marrakesh, Kingston, and Fez. |
-| Boundary | The result supports benchmark-scoped wins, not universal Fire Opal dominance. |
+| Boundary | The result supports benchmark-scoped wins, not a general claim across all workloads or calibration windows. |
 
 Primary artifact:
 
@@ -97,7 +97,7 @@ Primary artifacts:
 
 ## 4. Black-Scholes / Feynman-Kac Scalar Route
 
-The Black-Scholes lane is the application story. The target is a scalar value derived from a high-dimensional Black-Scholes basket PDE through a Feynman-Kac expectation route.
+The Black-Scholes lane is the application-linked result. The target is a scalar value derived from a high-dimensional Black-Scholes basket PDE through a Feynman-Kac expectation route.
 
 Public route:
 
@@ -123,11 +123,11 @@ Best corrected live branch in the current report:
 
 ![Black-Scholes estimates against independent target](figures/black_scholes_estimates_vs_target_actual.png)
 
-What this shows:
+Readout:
 
 | Item | Interpretation |
 | --- | --- |
-| PDE route | The run starts from a Black-Scholes/Feynman-Kac scalar target, not a random benchmark circuit. |
+| PDE route | The run starts from a Black-Scholes/Feynman-Kac scalar target. |
 | Hardware execution | The report includes IBM backend, job ID, QPU time, estimate, and target comparison. |
 | Boundary | This is a scalar route benchmark, not a full PDE-surface solve. |
 
@@ -137,7 +137,7 @@ Primary artifact:
 
 ## 5. Black-Scholes Protection Ablation
 
-The protection ablation is the main engineering result for the Black-Scholes lane. It shows how the deployed route changes as each protection family is added.
+The protection ablation shows how the deployed route changes as each protection family is added.
 
 ![Black-Scholes protection ablation](figures/black_scholes_ablation_actual.png)
 
@@ -154,7 +154,7 @@ Ablation table:
 | 7 | TSME terminal mirror + matrix decoder | 0.114125250 | 3.000 | 5 |
 | 8 | TSME terminal mirror + auto decoder | 0.142901850 | 3.000 | 5 |
 
-What each part contributed in this run:
+Observed role in this run:
 
 | Component | Observed role |
 | --- | --- |
@@ -166,7 +166,7 @@ What each part contributed in this run:
 | CONTOUR echo + X/XX echo | Available but too expensive for this shallow Black-Scholes branch in the current report. |
 | TSME terminal mirror | Physically implemented, but selector-gated because forced deployment worsened this route. |
 
-The right read is not "heavier protection always wins." The right read is that Daemon has a measured protection library and a selector. Shallow circuits need low-tax protection; deeper drift-sensitive circuits are where heavier CONTOUR/TSME/X-XX branches have more room to matter.
+The current Black-Scholes result favors low-tax protection. Heavier TSME/CONTOUR/X-XX branches are implemented and measured, but they are not automatically better on shallow circuits.
 
 ## 6. TSME / CONTOUR / X-XX Hardening
 
@@ -195,22 +195,19 @@ Primary artifact:
 | Black-Scholes scalar route | IBM Marrakesh scalar PDE route with job ID, target check, and protection ablation. | Scalar route benchmark, not full PDE surface. |
 | TSME/CONTOUR/X-XX hardening | Physical branches exist and are measured; no-harm selection prevents overprotection. | Best Black-Scholes branch is currently low-tax protection. |
 
-## 8. Claim Boundary
+## 8. Discussion and Limits
 
-Supported public claim:
+Supported by this public repo:
 
-```text
-Daemon is a protected quantum runtime stack with live IBM evidence across
-CONTOUR deep-time protection, matched Fire Opal comparison workloads, and a
-Black-Scholes/Feynman-Kac scalar application route with protection ablations.
-```
+- Daemon has live IBM evidence for a Black-Scholes/Feynman-Kac scalar route.
+- Daemon has public CONTOUR deep-window protection evidence.
+- Daemon has benchmark-scoped matched Fire Opal wins.
+- Daemon has protection ablations showing which branches helped this route.
 
 Not claimed here:
 
-```text
-Daemon universally beats Fire Opal.
-Daemon solves arbitrary PDEs.
-Daemon has proven full Black-Scholes application advantage.
-Daemon has solved an entire PDE surface on a quantum computer.
-```
+- Daemon universally beats Fire Opal.
+- Daemon solves arbitrary PDEs.
+- Daemon has proven full Black-Scholes application advantage.
+- Daemon has solved an entire PDE surface on a quantum computer.
 
